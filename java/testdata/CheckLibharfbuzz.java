@@ -9,6 +9,6 @@ public class CheckLibharfbuzz {
         Font [] fonts = env.getAllFonts();
         if ( fonts.length > 0 ) {
             System.out.println(fonts.length + " fonts loaded");
-        } 
-    }    
+        }
+    }
 }
