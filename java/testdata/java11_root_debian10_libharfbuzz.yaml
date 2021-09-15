@@ -5,4 +5,4 @@ commandTests:
               "-cp",
               "/app/distroless/java/check_libharfbuzz_java11_root_debian10.binary.jar:/app/distroless/java/check_libharfbuzz_java11_root_debian10.binary",
               "testdata.CheckLibharfbuzz"]
-    expectedOutput: ['^\d+ fonts loaded']
+    expectedOutput: ['^\d+ fonts available']
