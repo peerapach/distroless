@@ -42,3 +42,41 @@ NODEJS_MAJOR_VERISONS = ("12", "14", "16")
     for arch in ARCHITECTURES
     for distro_suffix in DISTRO_SUFFIXES + ["_debian11"]
 ]
+
+exports_files([
+    "testdata/check_certificate.js",
+])
+
+[
+    container_image(
+        name = "check_certificate_nodejs" + major_version + ("" if (not mode) else mode) + "_" + arch + distro_suffix,
+        base = "nodejs" + major_version + ("" if (not mode) else mode) + "_" + arch + distro_suffix,
+        files = ["testdata/check_certificate.js"],
+    )
+    for mode in [
+        "",
+        "_debug",
+    ]
+    for major_version in NODEJS_MAJOR_VERISONS
+    for arch in ARCHITECTURES
+    for distro_suffix in DISTRO_SUFFIXES + ["_debian11"]
+]
+
+[
+    container_test(
+        name = "check_certificate_nodejs" + major_version + ("" if (not mode) else mode) + "_" + arch + distro_suffix + "_test",
+        configs = ["testdata/check_certificate.yaml"],
+        image = "check_certificate_nodejs" + major_version + ("" if (not mode) else mode) + "_" + arch + distro_suffix,
+        tags = [
+            arch,
+            "manual",
+        ],
+    )
+    for mode in [
+        "",
+        "_debug",
+    ]
+    for major_version in NODEJS_MAJOR_VERISONS
+    for arch in ARCHITECTURES
+    for distro_suffix in DISTRO_SUFFIXES + ["_debian11"]
+]
